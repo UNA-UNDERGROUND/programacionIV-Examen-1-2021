@@ -45,7 +45,7 @@ public class GestorLogin extends HttpServlet {
     }
 
     boolean validarCampos(HttpServletRequest request) {
-        Map<String, String> errores= new HashMap();
+        Map<String, String> errores= new HashMap<>();
         if (request.getParameter("usuario").isEmpty() ) {
             errores.put("usuario", "cedula requerida");
         }
@@ -104,8 +104,6 @@ public class GestorLogin extends HttpServlet {
                 viewUrl = "/";
             }
             else{
-                //Cliente cliente = controlador.recuperarDatosPersonales(usuario.getCedula());
-                //session.setAttribute("cliente", cliente);
                 viewUrl = "/";
             }
             
@@ -125,8 +123,8 @@ public class GestorLogin extends HttpServlet {
     
     void updateModel(HttpServletRequest request) {
         Usuario credenciales = (Usuario) request.getAttribute("credenciales");
-        //credenciales.setCedula(Integer.parseInt(request.getParameter("usuario")));
-        //credenciales.setPass(request.getParameter("pass"));
+        credenciales.setCedula(request.getParameter("usuario"));
+        credenciales.setClave(request.getParameter("pass"));
         //las casillas sin marcar no son enviadas
         if(request.getParameterValues("admin")!=null){
             //credenciales.setAdministrativo(true);
