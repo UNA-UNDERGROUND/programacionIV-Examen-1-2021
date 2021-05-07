@@ -1,39 +1,44 @@
 package tiempos.backend.estructuras;
 
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "value"
+})
 @XmlRootElement(name = "tarjeta")
 public class Tarjeta {
 
-    @XmlAttribute
-    private String tipo;
     @XmlValue
-    private Integer numero;
+    protected BigInteger value;
+    @XmlAttribute(name = "tipo")
+    protected String tipo;
 
-    public Tarjeta() {
+
+    public BigInteger getValue() {
+        return value;
     }
 
-    public Tarjeta(String tipo, Integer numero) {
-        this.tipo = tipo;
-        this.numero = numero;
+
+    public void setValue(BigInteger value) {
+        this.value = value;
     }
+
 
     public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
+    public void setTipo(String value) {
+        this.tipo = value;
     }
 
 }

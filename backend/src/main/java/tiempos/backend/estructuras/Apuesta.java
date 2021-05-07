@@ -1,72 +1,65 @@
 package tiempos.backend.estructuras;
 
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apuesta")
 public class Apuesta {
 
-    @XmlElement(name = "cédula")
-    private Integer cedula;
-    @XmlElement(name = "número-sorteo")
-    private Integer numeroSorteo;
-    @XmlElement(name = "número-juego")
-    private Integer numeroJuego;
-    @XmlElement(name = "monto-apuesta")
-    private Integer montoApuesta;
-    @XmlElement(name = "monto-premio")
-    private Integer montoPremio;
+    @XmlElement(name ="c\u00e9dula",required = true)
+    protected String cedula;
+    @XmlElement(name = "n\u00famero-sorteo", required = true)
+    protected BigInteger numeroSorteo;
+    @XmlElement(name = "n\u00famero-juego")
+    protected int numeroJuego;
+    @XmlElement(name = "monto-apuesta", required = true)
+    protected BigInteger montoApuesta;
+    @XmlElement(name = "monto-premio", required = true)
+    protected BigInteger montoPremio;
 
-    public Apuesta() {
-    }
 
-    public Apuesta(Integer cedula, Integer numeroSorteo, Integer numeroJuego, Integer montoApuesta,
-            Integer montoPremio) {
-        this.cedula = cedula;
-        this.numeroSorteo = numeroSorteo;
-        this.numeroJuego = numeroJuego;
-        this.montoApuesta = montoApuesta;
-        this.montoPremio = montoPremio;
-    }
-
-    public Integer getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(Integer cedula) {
-        this.cedula = cedula;
+    public void setCedula(String value) {
+        this.cedula = value;
     }
 
-    public Integer getNumeroSorteo() {
+    public BigInteger getNumeroSorteo() {
         return numeroSorteo;
     }
 
-    public void setNumeroSorteo(Integer numeroSorteo) {
-        this.numeroSorteo = numeroSorteo;
+    public void setNumeroSorteo(BigInteger value) {
+        this.numeroSorteo = value;
     }
 
-    public Integer getNumeroJuego() {
+    public int getNumeroJuego() {
         return numeroJuego;
     }
 
-    public void setNumeroJuego(Integer numeroJuego) {
-        this.numeroJuego = numeroJuego;
+    public void setNumeroJuego(int value) {
+        this.numeroJuego = value;
     }
 
-    public Integer getMontoApuesta() {
+    public BigInteger getMontoApuesta() {
         return montoApuesta;
     }
 
-    public void setMontoApuesta(Integer montoApuesta) {
-        this.montoApuesta = montoApuesta;
+    public void setMontoApuesta(BigInteger value) {
+        this.montoApuesta = value;
     }
 
-    public Integer getMontoPremio() {
+    public BigInteger getMontoPremio() {
         return montoPremio;
     }
 
-    public void setMontoPremio(Integer montoPremio) {
-        this.montoPremio = montoPremio;
+    public void setMontoPremio(BigInteger value) {
+        this.montoPremio = value;
     }
 
 }

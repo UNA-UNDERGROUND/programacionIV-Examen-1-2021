@@ -19,8 +19,9 @@ public class Backend {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        
+        Controlador c = Controlador.getInstancia();
+        c.cargarDatos();
+        System.out.print(c);
     }
     
 }

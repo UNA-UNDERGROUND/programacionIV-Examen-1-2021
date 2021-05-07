@@ -1,89 +1,89 @@
 package tiempos.backend.estructuras;
 
-import java.util.Date;
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "sorteo")
 public class Sorteo {
 
-    @XmlElement(name = "número-sorteo")
-    private Integer numeroSorteo;
-    @XmlElement(name = "fecha")
-    private Date fecha;
-    @XmlElement(name = "motivo")
-    private String motivo;
-    @XmlElement(name = "retorno")
-    private Integer retorno;
-    @XmlElement(name = "número-ganador")
-    private Integer numeroGanador;
-    @XmlElement(name = "estado")
-    private Integer estado;
+    @XmlElement(name = "n\u00famero-sorteo", required = true)
+    protected BigInteger numeroSorteo;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar fecha;
+    @XmlElement(required = true)
+    protected String motivo;
+    protected int retorno;
+    @XmlElement(name = "n\u00famero-ganador")
+    protected Integer numeroGanador;
+    protected int estado;
 
-    public Sorteo() {
-    }
 
-    public Sorteo(
-            Integer numeroSorteo,
-            Date fecha,
-            String motivo,
-            Integer retorno,
-            Integer numeroGanador,
-            Integer estado) {
-        this.numeroSorteo = numeroGanador;
-        this.fecha = fecha;
-        this.motivo = motivo;
-        this.retorno = retorno;
-        this.numeroGanador = numeroGanador;
-        this.estado = estado;
-    }
-
-    public Integer getNumeroSorteo() {
+    public BigInteger getNumeroSorteo() {
         return numeroSorteo;
     }
 
-    public void setNumeroSorteo(Integer numeroSorteo) {
-        this.numeroSorteo = numeroSorteo;
+
+    public void setNumeroSorteo(BigInteger value) {
+        this.numeroSorteo = value;
     }
 
-    public Date getFecha() {
+
+    public XMLGregorianCalendar getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+
+    public void setFecha(XMLGregorianCalendar value) {
+        this.fecha = value;
     }
+
 
     public String getMotivo() {
         return motivo;
     }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
+
+    public void setMotivo(String value) {
+        this.motivo = value;
     }
 
-    public Integer getRetorno() {
+
+    public int getRetorno() {
         return retorno;
     }
 
-    public void setRetorno(Integer retorno) {
-        this.retorno = retorno;
+    public void setRetorno(int value) {
+        this.retorno = value;
     }
+
+ 
 
     public Integer getNumeroGanador() {
         return numeroGanador;
     }
 
-    public void setNumeroGanador(Integer numeroGanador) {
-        this.numeroGanador = numeroGanador;
+
+    public void setNumeroGanador(Integer value) {
+        this.numeroGanador = value;
     }
 
-    public Integer getEstado() {
+
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(Integer estado) {
-        this.estado = estado;
+
+    public void setEstado(int value) {
+        this.estado = value;
     }
 
 }
