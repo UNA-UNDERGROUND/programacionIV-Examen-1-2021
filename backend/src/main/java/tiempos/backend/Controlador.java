@@ -25,11 +25,19 @@ public class Controlador {
 
     }
 
+
+    public static boolean isWindows() {
+        return System.getProperty("os.name").startsWith("Windows");
+    }
+
     private void cargarConfiguraciones() {
         try {
 
             this.cfg.load(getClass().getResourceAsStream(UBICACION_CONFIGURACION));
-            this.ubicacionXML = cfg.getProperty("ubicacionXML");
+            String rutaXML = cfg.getProperty(isWindows() ? "rutaWindows" : "rutaUNIX");
+            String nombreXML = cfg.getProperty("nombreXML");
+            String homeDIR = System.getProperty("user.home");
+            this.ubicacionXML =  homeDIR + rutaXML + nombreXML;
         } catch (IOException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
