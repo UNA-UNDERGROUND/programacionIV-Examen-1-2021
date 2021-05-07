@@ -48,5 +48,5 @@ public class Usuario {
     public void setAdministrador(Boolean value) {
         this.administrador = value;
     }
-
+    
 }

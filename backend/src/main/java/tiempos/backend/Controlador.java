@@ -13,6 +13,7 @@ import java.util.Properties;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import tiempos.backend.estructuras.Informacion;
+import tiempos.backend.estructuras.Usuario;
 
 /**
  *
@@ -32,6 +33,10 @@ public class Controlador {
         } catch (IOException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
+    }
+    
+    public Usuario login(Usuario credenciales){
+        return credenciales;
     }
 
     public Boolean cargarDatos() {
