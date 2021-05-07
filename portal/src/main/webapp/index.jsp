@@ -20,7 +20,7 @@
                 <%if (usuario.isAdministrador()) {%>
                 <h1>DashBoard Administrativo</h1>
                 <%} else {%>
-                <h1>Bienvenido: <%="usuario.getNombre()" + " " + "cliente.getApellidos()"%></h1>
+                <h1>Bienvenido: <%=usuario.getNombre() + " " + usuario.getApellidos()%></h1>
                 <%}%>
                 <%}%>
 
