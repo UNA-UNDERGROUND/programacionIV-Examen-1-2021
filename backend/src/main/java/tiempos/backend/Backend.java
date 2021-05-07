@@ -21,6 +21,7 @@ public class Backend {
     public static void main(String[] args) {
         Controlador c = Controlador.getInstancia();
         c.cargarDatos();
+        c.recuperarUsuario("105710421");
         System.out.print(c);
     }
     

@@ -13,6 +13,7 @@ import java.util.Properties;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import tiempos.backend.estructuras.Informacion;
+import tiempos.backend.estructuras.ListaUsuarios;
 import tiempos.backend.estructuras.Usuario;
 
 /**
@@ -25,6 +26,15 @@ public class Controlador {
 
     }
 
+    public Usuario recuperarUsuario(String cedula) {
+        ListaUsuarios lista = info.getListaUsuarios();
+        for (Usuario u : lista.getUsuario()) {
+            if (u.getCedula().equals(cedula)) {
+                return u;
+            }
+        }
+        return null;
+    }
 
     public static boolean isWindows() {
         return System.getProperty("os.name").startsWith("Windows");
@@ -42,9 +52,19 @@ public class Controlador {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
     }
-    
-    public Usuario login(Usuario credenciales){
-        return credenciales;
+
+    public Usuario login(Usuario credenciales) {
+        try{
+            Usuario cred = recuperarUsuario(credenciales.getCedula());
+            if (cred.getClave().equals(credenciales.getClave())) {
+                return cred;
+            }
+        }
+        catch(Exception ex){
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        
+        return null;
     }
 
     public Boolean cargarDatos() {
@@ -58,7 +78,7 @@ public class Controlador {
 
             unmarshaller.setSchema(null);
             info = info.getClass().cast(unmarshaller.unmarshal(xmlContentBytes));
-            
+
         } catch (Exception ex) {
             System.err.printf("Excepción: '%s'%n", ex.getLocalizedMessage());
             System.err.printf("Excepción: '%s'%n", ex.getCause());
