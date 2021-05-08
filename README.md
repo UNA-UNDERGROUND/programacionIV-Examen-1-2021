@@ -3,3 +3,10 @@
 ## Juego de Tiempos Electrónicos
 
 examen 1 de programacion 4 2021 escrito en java
+copiar a la carpeta del usuario en una carpeta data
+la informacion de datos, es donde el proyecto buscara el xml
+
+> Windows  
+> C:\Usuarios\Jonathan\data\\{los xml}  
+> Linux  
+> /users/jonathan/data/{los xml}
