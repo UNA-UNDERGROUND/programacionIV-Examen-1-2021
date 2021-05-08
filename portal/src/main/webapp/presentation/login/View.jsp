@@ -1,7 +1,26 @@
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
+<%@ page import="tiempos.backend.Controlador" %>
+<%@ page import="java.util.Map" %>
 
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    Controlador controlador = Controlador.getInstancia();
+    Usuario credenciales= (Usuario) request.getAttribute("credenciales");
+
+    String  textoError = (String) request.getAttribute("textoError");
+    Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
+
+%>
+
+
+<%
+    if(credenciales == null){
+        credenciales = new Usuario();
+    }
+%>
+
+
         <!DOCTYPE html>
         <html>
 
@@ -15,9 +34,7 @@
 
         <body>
              <jsp:include page="/presentation/Header.jsp" />
-            <% Usuario credenciales= (Usuario) request.getAttribute("credenciales"); %>
-            <%String  textoError = (String) request.getAttribute("textoError"); %>
-            <%Map<String, String>  errores = (Map<String, String>) request.getAttribute("errores"); %>
+
             
                 <div class="contenido centrado">
                     <div class="formulario">
@@ -35,13 +52,12 @@
                             <%}%>
                             
                             <div class="campo-entrada <%=erroneo("usuario",errores)%>">
-                                <input type="text" id="cedula" name="usuario" 
-                                       value="<%=credenciales.getCedula()==0? "" : credenciales.getCedula()%>"  
+                                <input type="text" id="cedula" name="usuario"
                                        pattern="\d+" title="Ingrese una cedula valida sin guiones y/o espacios" placeholder=" " required>
                                 <label for="cedula">Cedula</label>
                             </div>
                             <div class="campo-entrada <%=erroneo("pass",errores)%>">
-                                <input type="password" id="contraseña" name="pass" value="<%=credenciales.getPass()%>" placeholder=" "  required>
+                                <input type="password" id="contraseña" name="pass" placeholder=" "  required>
                                 <label for="contraseña">Contraseña</label>
                             </div>
                             <div class="campo-entrada">

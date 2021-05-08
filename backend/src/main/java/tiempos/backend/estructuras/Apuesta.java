@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "apuesta")
 public class Apuesta {
 
-    @XmlElement(name ="c\u00e9dula",required = true)
+    @XmlElement(name = "c\u00e9dula", required = true)
     protected String cedula;
     @XmlElement(name = "n\u00famero-sorteo", required = true)
     protected BigInteger numeroSorteo;
@@ -20,7 +20,6 @@ public class Apuesta {
     protected BigInteger montoApuesta;
     @XmlElement(name = "monto-premio", required = true)
     protected BigInteger montoPremio;
-
 
     public String getCedula() {
         return cedula;
@@ -60,6 +59,15 @@ public class Apuesta {
 
     public void setMontoPremio(BigInteger value) {
         this.montoPremio = value;
+    }
+
+    @Override
+    public String toString() {
+        return "cedula: " + cedula + "\n"
+                + "numero Sorteo: " + numeroSorteo + "\n"
+                + "numero Juego: " + numeroJuego + "\n"
+                + "monto Apuesta: " + montoApuesta + "\n"
+                + "monto Premio: " + montoPremio + "\n";
     }
 
 }

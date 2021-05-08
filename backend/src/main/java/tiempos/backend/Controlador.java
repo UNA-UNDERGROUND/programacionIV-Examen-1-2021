@@ -8,22 +8,24 @@ package tiempos.backend;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-import tiempos.backend.estructuras.Informacion;
-import tiempos.backend.estructuras.ListaUsuarios;
-import tiempos.backend.estructuras.Usuario;
+
+import tiempos.backend.estructuras.*;
 
 /**
  *
  * @author jonathan
  */
-public class Controlador {
+public final class Controlador {
 
     private Controlador() {
-
+        cargarDatos();
     }
 
     public Usuario recuperarUsuario(String cedula) {
@@ -36,6 +38,93 @@ public class Controlador {
         return null;
     }
 
+    public Usuario login(Usuario credenciales) {
+        try{
+            Usuario cred = recuperarUsuario(credenciales.getCedula());
+            String clave1 = cred.getClave();
+            String clave2 = credenciales.getClave();
+            if (clave1.equals(clave2)) {
+                if(credenciales.isAdministrador() != null && credenciales.isAdministrador()){
+                    if(cred.isAdministrador() == null &&!cred.isAdministrador().equals(true)){
+                        return null;
+                    }
+                }
+                return cred;
+            }
+        }
+        catch(Exception ex){
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        
+        return null;
+    }
+
+    public List<Sorteo> getProximosSorteos(){
+        ListaSorteos lista = info.getListaSorteos();
+        List<Sorteo> filtro = new ArrayList<>();
+
+        for(Sorteo sorteo: lista.getSorteo()){
+            if (sorteo.getEstado() == 1){
+                filtro.add(sorteo);
+            }
+        }
+
+        return filtro;
+    }
+    public List<Sorteo> getPasadosSorteos() {
+        ListaSorteos lista = info.getListaSorteos();
+        List<Sorteo> filtro = new ArrayList<>();
+
+        for(Sorteo sorteo: lista.getSorteo()){
+            if (sorteo.getEstado() != 1){
+                filtro.add(sorteo);
+            }
+        }
+
+        return filtro;
+    }
+    public List<Apuesta> getApuestasUsuario(String cedula){
+        ListaApuestas lista = info.getListaApuestas();
+        List<Apuesta> filtro = new ArrayList<>();
+        for (Apuesta apuesta : lista.getApuesta()) {
+            if (apuesta.getCedula().equals(cedula)) {
+                filtro.add(apuesta);
+            }
+        }
+        return filtro;
+    }
+    public Sorteo getSorteo(BigInteger numeroSorteo){
+        ListaSorteos lista = info.getListaSorteos();
+
+        for(Sorteo sorteo: lista.getSorteo()){
+            if (sorteo.getNumeroSorteo().equals(numeroSorteo)){
+                return sorteo;
+            }
+        }
+
+        return null;
+    }
+    public void agregarApuesta(Apuesta apuesta){
+        int montoApuesta = apuesta.getMontoApuesta().intValue();
+        int numeroJuego = apuesta.getNumeroJuego();
+        if(montoApuesta > 99 && montoApuesta < 20000 && numeroJuego >= 0 && numeroJuego < 100){
+            info.getListaApuestas().getApuesta().add(apuesta);
+            System.out.print("apuesta nueva: \n" + apuesta);
+        }
+        //se imprime  la informacion de la apuesta
+        
+        
+    }
+    
+    public void agregarGanador(BigInteger numeroSorteo, int numeroGanador){
+        Sorteo sorteo = getSorteo(numeroSorteo);
+        if(sorteo != null && numeroGanador <= 0 && numeroGanador < 100){
+            sorteo.setNumeroGanador(numeroGanador);
+            //cerrado
+            sorteo.setEstado(3);
+        }
+    }
+    
     public static boolean isWindows() {
         return System.getProperty("os.name").startsWith("Windows");
     }
@@ -51,20 +140,6 @@ public class Controlador {
         } catch (IOException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
-    }
-
-    public Usuario login(Usuario credenciales) {
-        try{
-            Usuario cred = recuperarUsuario(credenciales.getCedula());
-            if (cred.getClave().equals(credenciales.getClave())) {
-                return cred;
-            }
-        }
-        catch(Exception ex){
-            System.err.printf("Excepción: '%s'%n", ex.getMessage());
-        }
-        
-        return null;
     }
 
     public Boolean cargarDatos() {
@@ -103,4 +178,6 @@ public class Controlador {
     private Informacion info;
 
     private static final String UBICACION_CONFIGURACION = "/configuraciones/archivos.properties";
+
+
 }

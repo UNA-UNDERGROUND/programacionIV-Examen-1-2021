@@ -2,7 +2,7 @@
     <nav>
         <ul>
             <li>
-                <a>tiempos PSB 2020.</a>
+                <a>tiempos SPJ 2021.</a>
             </li>
         </ul>
     </nav>

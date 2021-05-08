@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tiempos.frontend.login;
+package tiempos.frontend.cliente;
+
 
 
 import tiempos.backend.Controlador;
@@ -23,26 +24,15 @@ import java.util.Map;
  *
  * @author jonguz
  */
-@WebServlet(name = "AccountLoginController", urlPatterns = {"/login","/login-show", "/logout"})
-public class GestorLogin extends HttpServlet {
+@WebServlet(name = "ApuestasClienteController", urlPatterns = {"/cliente-apuestas"})
+public class ApuestasCliente extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
                                   HttpServletResponse response)
         throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("credenciales", new Usuario());
-        String viewUrl="";
-        switch (request.getServletPath()) {
-            case "/login-show":
-                viewUrl = this.show(request);
-                break;
-            case "/login":
-                viewUrl = this.login(request);
-                break;
-            case "/logout":
-                viewUrl = this.logout(request);
-                break;
-        }
+        String viewUrl = this.show(request);
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
 
@@ -70,73 +60,8 @@ public class GestorLogin extends HttpServlet {
         return this.showAction(request);
     }
 
-    private String login(HttpServletRequest request) {
-        try {
-            if (this.validarCampos(request)) {
-                this.updateModel(request);
-                return this.loginAction(request);
-            } else {
-                request.setAttribute("textoError", "Verifique la informacion de los datos");
-                return "/presentation/login/View.jsp";
-            }
-        } catch (Exception e) {
-            return "/presentation/Error.jsp";
-        }
-    }
-
-    public String logout(HttpServletRequest request){
-        return this.logoutAction(request);
-    }
-
     public String showAction(HttpServletRequest request) {
-        //HttpSession session = request.getSession(true);
-        return "/presentation/login/View.jsp";
-    }
-
-    public String loginAction(HttpServletRequest request) {
-        Usuario credenciales = (Usuario) request.getAttribute("credenciales");
-        Controlador controlador = Controlador.getInstancia();
-        HttpSession session = request.getSession(true);
-        String viewUrl;
-        try {
-            
-            Usuario usuario = controlador.login(credenciales);
-            
-            if(usuario.isAdministrador()==null){
-                usuario.setAdministrador(false);
-            }
-            session.setAttribute("usuario", usuario);
-
-            if(usuario.isAdministrador()){
-                viewUrl = "/";
-            }
-            else{
-                viewUrl = "/";
-            }
-            
-        } catch (Exception ex) {
-            request.setAttribute("textoError", "Usuario y/o clave incorrectos");
-            viewUrl = "/login-show";
-        }
-        return viewUrl;
-    }
-
-    public String logoutAction(HttpServletRequest request){
-        HttpSession session = request.getSession(true);
-        session.removeAttribute("usuario");
-        session.invalidate();
-        return "/index.jsp";   
-    }
-    
-    void updateModel(HttpServletRequest request) {
-        Usuario credenciales = (Usuario) request.getAttribute("credenciales");
-        credenciales.setCedula(request.getParameter("usuario"));
-        credenciales.setClave(request.getParameter("pass"));
-        //las casillas sin marcar no son enviadas
-        if(request.getParameterValues("admin")!=null){
-            credenciales.setAdministrador(true);
-        }
-          
+        return "/presentation/cliente/verApuestas.jsp";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
