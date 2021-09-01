@@ -7,6 +7,6 @@ copiar a la carpeta del usuario en una carpeta data
 la informacion de datos, es donde el proyecto buscara el xml
 
 > Windows  
-> C:\Usuarios\Jonathan\data\\{los xml}  
+> C:\Usuarios\usuario\data\\{los xml}  
 > Linux  
-> /users/jonathan/data/{los xml}
+> /users/usuario/data/{los xml}
